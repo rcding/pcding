@@ -1,16 +1,18 @@
-import vuex from 'vuex';
+import Vue from 'vue';
+import Vuex from 'vuex';
 import action from './action';
 import mutation from './mutation';
 
-const store = new vuex({
-	state: {
-		userInfo: {
-			userId:'',
-			userName: ''
-		}
-	},
-	action,
-	mutation,
+Vue.use(Vuex);
+const store = new Vuex.Store({
+    state: {
+        userInfo: {
+            userId:'',
+            userName: ''
+        }
+    },
+    action,
+    mutation,
 });
 
 export default store;
