@@ -28,13 +28,6 @@ export default {
     },
     created: function () {
         const that = this;
-        dd.device.notification.alert({
-            message:"====== in",
-            title: "提示",
-            buttonName: "确定",
-            onSuccess : function() {},
-            onFail : function() {}
-        });
         that.alterInfo("===  in");
         dd.runtime.permission.requestAuthCode({
             corpId: "ding251335d31062a7f535c2f4657eb6378f",
@@ -60,16 +53,17 @@ export default {
             });
         },
         goToMeeting() {
-            this.$router.push({ name: 'meeting' });
-            // this.requestAuthCode();
-            // this.login(this.authCode);
+            //this.$router.push({ name: 'meeting' });
+            this.requestAuthCode();
         },
         requestAuthCode() {
+            this.alterInfo("====in")
             dd.runtime.permission.requestAuthCode({
                 corpId: "ding251335d31062a7f535c2f4657eb6378f",
                 onSuccess: function(result) {
                     this.authCode = result.code;
                     this.alterInfo(this.authCode);
+                    this.login(this.authCode);
                 },
                 onFail : function(err) {
                     this.alterInfo(err);
