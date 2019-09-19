@@ -68,7 +68,7 @@ export default {
             });
             axios.get(API.meetingPage, { params })
                 .then((res) => {
-                   this.dataList = res.result.dataList;
+                   this.dataList = res.data.result.dataList;
                 });
         },
         getMore() {},
