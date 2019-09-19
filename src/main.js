@@ -3,6 +3,8 @@ import App from './App.vue'
 import store from '../src/store';
 import router from '../src/router';
 
+import '@/utils/networking';
+
 import { Button, Select, Table, TableColumn, Form, FormItem } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
