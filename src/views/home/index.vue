@@ -27,22 +27,22 @@ export default {
         };
     },
     created: function () {
-        // dd.ready(function() {
-        //     const that = this;
-        //     that.alterInfo("===  in");
-        //     dd.runtime.permission.requestAuthCode({
-        //         corpId: "ding251335d31062a7f535c2f4657eb6378f",
-        //         onSuccess: function (result) {
-        //             that.authCode = result.code;
-        //             that.alterInfo("===  " + result.code);
-        //             that.login(this.authCode);
-        //         },
-        //         onFail: function () {
-        //             alert("error");
-        //         }
-        //
-        //     });
-        // });
+        dd.ready(function() {
+             const that = this;
+             that.alterInfo("===  in");
+             dd.runtime.permission.requestAuthCode({
+                 corpId: "ding251335d31062a7f535c2f4657eb6378f",
+                 onSuccess: function (result) {
+                     that.authCode = result.code;
+                     that.alterInfo("===  " + result.code);
+                     that.login(this.authCode);
+                 },
+                 onFail: function () {
+                     alert("error");
+                 }
+
+             });
+         });
     },
     methods: {
         alterInfo(msg){
@@ -75,7 +75,7 @@ export default {
 
         login(authCode){
 
-            axios.post('http://yufusong.ding.vaiwan.com/dingding/login?authCode=' + authCode) .then((res) => {
+            axios.post('https://fatdingding.szlcsc.com/login?authCode=' + authCode) .then((res) => {
                 this.alterInfo("登陆。。。" + authCode);
                 var userId = res.data.result.userId;
                 if (userId == ""){
