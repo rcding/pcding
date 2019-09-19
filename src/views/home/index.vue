@@ -28,6 +28,13 @@ export default {
     },
     created: function () {
         const that = this;
+        dd.device.notification.alert({
+            message:"====== in",
+            title: "提示",
+            buttonName: "确定",
+            onSuccess : function() {},
+            onFail : function() {}
+        });
         that.alterInfo("===  in");
         dd.runtime.permission.requestAuthCode({
             corpId: "ding251335d31062a7f535c2f4657eb6378f",
