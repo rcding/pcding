@@ -1,5 +1,5 @@
 export default {
-	SetUserInfo(state, userInfo) {
-		state.userInfo = userInfo;
+	SetUserInfo(context, userInfo) {
+		context.commit('Set_USER_INFO', userInfo);
 	}
 }
