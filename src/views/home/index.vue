@@ -1,7 +1,7 @@
 <template>
-    <div style="height: auto;background-color: #42b983">
-        <el-button type="primary" @click="goToMeeting" style="margin-right: 20px" >我要开会</el-button>
-        <el-button type="primary" @click="goToMeetingRecord">会议记录</el-button>
+    <div>
+        <el-button class="button" type="primary" @click="goToMeeting">我要开会</el-button>
+        <el-button class="button" type="primary" @click="goToMeetingRecord">会议记录</el-button>
     </div>
 </template>
 
@@ -115,12 +115,11 @@ li {
 a {
     color: #42b983;
 }
-button {
-    margin-top: 8px;
+.button {
     width: 200px;
     height: 80px;
-    font-size: 18px;
+    font-size: 20px;
     border-radius: 18px;
-    border: 1px solid grey;
+    margin: 20px;
 }
 </style>

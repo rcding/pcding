@@ -10,19 +10,19 @@ Vue.use(Router);
 const router = new Router({
     routes: [
         {
-            path: 'home',
+            path: '/home',
             meta: { title: '主页' },
             name: 'home',
             component: Home,
         },
         {
-            path: 'meeting',
+            path: '/meeting',
             meta: { title: '我要开会' },
             name: 'meeting',
             component: Meeting,
         },
         {
-            path: 'meeting-record',
+            path: '/meeting-record',
             meta: { title: '会议记录' },
             name: 'meeting-record',
             component: MeetingRecord,
