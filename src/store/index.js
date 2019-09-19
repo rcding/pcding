@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import action from './action';
-import mutation from './mutation';
+import actions from './action';
+import mutations from './mutation';
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -11,8 +11,8 @@ const store = new Vuex.Store({
             userName: ''
         }
     },
-    action,
-    mutation,
+    actions,
+    mutations,
 });
 
 export default store;
