@@ -76,12 +76,12 @@ export default {
 
             axios.post('https://fatdingding.szlcsc.com/login?authCode=' + authCode) .then((res) => {
                 this.alterInfo("登陆。。。" + authCode);
-                var userId = res.data.result.userId;
+                var userId = res.data.result.dingUserId;
                 if (userId == ""){
                     this.alterInfo("登陆失败");
                 }else{
-                    this.userInfo.userId = res.data.result.userId;
-                    this.userInfo.userName = res.data.result.userName;
+                    this.userInfo.userId = res.data.result.dingUserId;
+                    this.userInfo.userName = res.data.result.dingUserName;
                     this.$store.dispatch('Set_USER_INFO', this.userInfo);
 
                     this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
