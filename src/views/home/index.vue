@@ -82,7 +82,7 @@ export default {
                 }else{
                     this.userInfo.userId = res.data.result.dingUserId;
                     this.userInfo.userName = res.data.result.dingUserName;
-                    this.$store.dispatch('Set_USER_INFO', this.userInfo);
+                    this.$store.dispatch('SetUserInfo', this.userInfo);
 
                     this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
                 }
