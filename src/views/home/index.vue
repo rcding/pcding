@@ -34,7 +34,7 @@ export default {
             onSuccess: function (result) {
                 that.authCode = result.code;
                 that.alterInfo("===  " + result.code);
-                that.login(this.authCode);
+                that.login(that.authCode);
             },
             onFail: function () {
                 alert("error");
