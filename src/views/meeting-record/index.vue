@@ -49,6 +49,7 @@ export default {
                 dingUserName: '',
                 currentPage: 1,
                 pageSize: 10,
+                showMore:true,
             },
             timeSpan: '',
             meetingThemeList: [],
@@ -68,7 +69,6 @@ export default {
             });
             axios.get(API.meetingPage, { params })
                 .then((res) => {
-                    alert(res.data.result.dataList);
                     if (res.data.result.dataList.length === 0){
                         this.form.currentPage = this.form.currentPage - 1;
                         if (this.form.currentPage === 0 ){
@@ -76,13 +76,15 @@ export default {
                         }
                     }else{
                        this.dataList = this.dataList.concat(res.data.result.dataList);
+                       if (res.data.result.dataList.length < this.form.pageSize){
+                           this.form.showMore = false;
+                       }
                     }
 
                 });
         },
         getMore() {
             this.form.currentPage = this.form.currentPage + 1;
-            alert("in + |" + this.form.currentPage);
             this.search();
         },
         reset(){
