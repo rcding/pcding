@@ -27,6 +27,12 @@ export default {
         };
     },
     created: function () {
+
+        var userId = this.$store.state.userInfo.userId;
+        if (userId != "" || userId != undefined) {
+            return;
+        }
+
         const that = this;
         that.alterInfo("===  in");
         dd.runtime.permission.requestAuthCode({
@@ -76,7 +82,7 @@ export default {
             axios.post('https://fatdingding.szlcsc.com/login?authCode=' + authCode) .then((res) => {
                 this.alterInfo("登陆。。。" + authCode + "===" + res.data.result.dingUserId + " " + res.data.result.dingUserName);
                 var userId = res.data.result.dingUserId;
-                if (userId == ""){
+                if (userId == "" || userId == undefined){
                     this.alterInfo("登陆失败");
                 }else{
                     this.userInfo.userId = res.data.result.dingUserId;
