@@ -34,7 +34,7 @@ export default {
         }
 
         const that = this;
-        that.alterInfo("===  in");
+        that.alterInfo("===  in " + this.$store.state.userInfo.userName );
         dd.runtime.permission.requestAuthCode({
             corpId: "ding251335d31062a7f535c2f4657eb6378f",
             onSuccess: function (result) {
