@@ -50,6 +50,7 @@ export default {
                 currentPage: 1,
                 pageSize: 10,
                 showMore:true,
+                dingUserId:this.$store.state.userInfo.userId,
             },
             timeSpan: '',
             meetingThemeList: [],
@@ -63,6 +64,8 @@ export default {
         search() {
             this.form.currentPage = 1;
             this.dataList = [];
+            this.form.showMore = true;
+            this.getDataList();
         },
         getMore() {
             this.form.currentPage = this.form.currentPage + 1;
