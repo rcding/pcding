@@ -82,7 +82,7 @@ export default {
             axios.post('https://fatdingding.szlcsc.com/login?authCode=' + authCode) .then((res) => {
                 this.alterInfo("登陆。。。" + authCode + "===" + res.data.result.dingUserId + " " + res.data.result.dingUserName);
                 var userId = res.data.result.dingUserId;
-                if (userId == "" || userId == undefined){
+                if (userId === ""){
                     this.alterInfo("登陆失败");
                 }else{
                     this.userInfo.userId = res.data.result.dingUserId;
