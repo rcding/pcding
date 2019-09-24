@@ -55,7 +55,11 @@ export default {
             timeSpan: '',
             meetingThemeList: [],
             compereList: [],
-            timeSpanList: [],
+            timeSpanList: [
+                {code:'',name:'全部'},
+                {code:'0-30',name:'30分总以内'},
+                {code:'30-60',name:'30~60分钟'},
+                {code:'0-60',name:'60分钟以内'}],
             dataList: [],
             loading: false,
         };
