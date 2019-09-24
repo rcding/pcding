@@ -31,7 +31,7 @@
             <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
             <el-table-column prop="costTime" label="会议时长" align="center"></el-table-column>
         </el-table>
-        <div class="footer">
+        <div class="footer" v-if="form.showMore">
             <el-button type="text" class="black-button" @click="getMore">点击加载更多</el-button>
         </div>
     </div>
@@ -61,6 +61,14 @@ export default {
     },
     methods: {
         search() {
+            this.form.currentPage = 1;
+            this.dataList = [];
+        },
+        getMore() {
+            this.form.currentPage = this.form.currentPage + 1;
+            this.getDataList();
+        },
+        getDataList(){
             const params = {};
             Object.keys(this.form) .forEach((key) => {
                 if (this.form[key]) {
@@ -75,17 +83,13 @@ export default {
                             this.form.currentPage = 1;
                         }
                     }else{
-                       this.dataList = this.dataList.concat(res.data.result.dataList);
-                       if (res.data.result.dataList.length < this.form.pageSize){
-                           this.form.showMore = false;
-                       }
+                        this.dataList = this.dataList.concat(res.data.result.dataList);
+                        if (res.data.result.dataList.length < this.form.pageSize){
+                            this.form.showMore = false;
+                        }
                     }
 
                 });
-        },
-        getMore() {
-            this.form.currentPage = this.form.currentPage + 1;
-            this.search();
         },
         reset(){
 
