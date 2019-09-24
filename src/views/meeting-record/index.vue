@@ -68,8 +68,12 @@ export default {
             });
             axios.get(API.meetingPage, { params })
                 .then((res) => {
+                    alert(res.data.result.dataList);
                     if (res.data.result.dataList.length === 0){
                         this.form.currentPage = this.form.currentPage - 1;
+                        if (this.form.currentPage === 0 ){
+                            this.form.currentPage = 1;
+                        }
                     }else{
                        this.dataList = this.dataList.concat(res.data.result.dataList);
                     }
@@ -78,6 +82,7 @@ export default {
         },
         getMore() {
             this.form.currentPage = this.form.currentPage + 1;
+            alert("in + |" + this.form.currentPage);
             this.search();
         },
         reset(){
