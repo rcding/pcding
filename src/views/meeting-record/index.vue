@@ -50,7 +50,7 @@ export default {
                 currentPage: 1,
                 pageSize: 10,
                 showMore:true,
-                dingUserId:this.$store.state.userInfo.userId,
+                dingUserId:0,
             },
             timeSpan: '',
             meetingThemeList: [],
@@ -102,6 +102,7 @@ export default {
         },
     },
     created: function () {
+        this.form.dingUserId = this.$store.state.userInfo.userId;
         this.search();
     }
 }
