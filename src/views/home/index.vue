@@ -30,7 +30,7 @@ export default {
 
         var userId = this.$store.state.userInfo.userId;
         if (userId != "" || userId != undefined) {
-            this.alterInfo("===  in " + this.$store.state.userInfo.userName );
+            this.alterInfo("===  in 00|" + userId + "___" +this.$store.state.userInfo.userName );
             return;
         }
 
