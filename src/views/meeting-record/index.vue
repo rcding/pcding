@@ -17,7 +17,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="info" size="mini" @click="back">返回</el-button>
+<!--                <el-button type="info" size="mini" @click="reset">重置</el-button>-->
                 <el-button type="primary" size="mini" @click="search">搜索</el-button>
             </el-form-item>
         </el-form>
@@ -68,14 +68,28 @@ export default {
             });
             axios.get(API.meetingPage, { params })
                 .then((res) => {
-                   this.dataList = res.data.result.dataList;
+                    if (res.data.result.dataList.length === 0){
+                        this.form.currentPage = this.form.currentPage - 1;
+                    }else{
+                       this.dataList = this.dataList.concat(res.data.result.dataList);
+                    }
+
                 });
         },
-        getMore() {},
+        getMore() {
+            this.form.currentPage = this.form.currentPage + 1;
+            this.search();
+        },
+        reset(){
+
+        },
         back() {
             this.$router.push({ name: 'home' });
         },
     },
+    created: function () {
+        this.search();
+    }
 }
 </script>
 
