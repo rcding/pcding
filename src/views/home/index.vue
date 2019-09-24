@@ -30,11 +30,11 @@ export default {
 
         var userId = this.$store.state.userInfo.userId;
         if (userId != "" || userId != undefined) {
+            this.alterInfo("===  in " + this.$store.state.userInfo.userName );
             return;
         }
 
         const that = this;
-        that.alterInfo("===  in " + this.$store.state.userInfo.userName );
         dd.runtime.permission.requestAuthCode({
             corpId: "ding251335d31062a7f535c2f4657eb6378f",
             onSuccess: function (result) {
