@@ -53,8 +53,7 @@ export default {
             });
         },
         goToMeeting() {
-            //this.$router.push({ name: 'meeting' });
-            this.requestAuthCode();
+            this.$router.push({ name: 'meeting' });
         },
         requestAuthCode() {
             this.alterInfo("====in")
