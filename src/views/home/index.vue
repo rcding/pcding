@@ -29,7 +29,7 @@ export default {
     created: function () {
 
         var userId = this.$store.state.userInfo.userId;
-        if (userId != "" || userId != undefined) {
+        if (userId !== "" ) {
             this.alterInfo("===  in 00|" + userId + "___" +this.$store.state.userInfo.userName );
             return;
         }
