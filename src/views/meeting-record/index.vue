@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item>
 <!--                <el-button type="info" size="mini" @click="reset">重置</el-button>-->
-                <el-button type="primary" size="mini" @click="search">搜索</el-button>
+                <el-button type="primary" size="mini" :loading="loading" @click="search">搜索</el-button>
             </el-form-item>
         </el-form>
         <el-table
@@ -29,7 +29,11 @@
             :data="dataList">
             <el-table-column prop="meetingName" label="会议主题" align="center"></el-table-column>
             <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
-            <el-table-column prop="costTime" label="会议时长" align="center"></el-table-column>
+            <el-table-column label="会议时长" align="center">
+                <template slot-scope="scope">
+                    {{scope.row.costTime || 'huixh'}}
+                </template>
+            </el-table-column>
         </el-table>
         <div class="footer" v-if="form.showMore">
             <el-button type="text" class="moreData-button" @click="getMore">点击加载更多</el-button>
@@ -46,7 +50,7 @@ export default {
         return {
             form: {
                 meetingName: '部门晨会',
-                dingUserId:0,
+                dingUserId:null,
                 currentPage: 1,
                 pageSize: 10,
                 showMore:true,
@@ -67,7 +71,7 @@ export default {
     methods: {
         search() {
             this.form.currentPage = 1;
-            this.dataList = [];
+
             this.getDataList();
         },
         getMore() {
@@ -81,8 +85,10 @@ export default {
                     params[key] = this.form[key];
                 }
             });
+            this.loading = true;
             axios.get(API.meetingPage, { params })
                 .then((res) => {
+
                     if (res.data.result.dataList.length === 0){
                         this.form.currentPage = this.form.currentPage - 1;
                         if (this.form.currentPage === 0 ){
@@ -90,7 +96,6 @@ export default {
                             this.form.showMore = false;
                         }
                     }else{
-                        this.dataList = this.dataList.concat(res.data.result.dataList);
                         if (res.data.result.dataList.length < this.form.pageSize){
                             this.form.showMore = false;
                         }else{
@@ -98,6 +103,15 @@ export default {
                         }
                     }
 
+                    if (this.form.currentPage === 1){
+                        this.dataList = res.data.result.dataList;
+                    }else {
+                        this.dataList = this.dataList.concat(res.data.result.dataList);
+                    }
+
+                })
+                .finally(() => {
+                    this.loading = false;
                 });
         },
         reset(){
@@ -115,7 +129,7 @@ export default {
         },
     },
     created: function () {
-        this.userInfoList = [{'userId':0,'dingUserId':'0','dingUserName':'全部','workNumber':'0'}];
+        this.userInfoList = [{'userId':0,'dingUserId':null,'dingUserName':'全部','workNumber':'0'}];
         this.loadUserInfo();
         this.search();
     }

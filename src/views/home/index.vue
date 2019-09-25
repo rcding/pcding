@@ -19,7 +19,6 @@ export default {
     },
     data() {
         return {
-            message: '22222',
             params:{authCode:""},
             userInfo:{userId:0,userName:''},
             result: {},
@@ -28,11 +27,11 @@ export default {
     created: function () {
 
         /*this.userInfo.userId = 'manager4081';
-        this.userInfo.userName = '李一凡';*/
-        this.$store.dispatch('SetUserInfo', this.userInfo);
+        this.userInfo.userName = '李一凡';
+        this.$store.dispatch('SetUserInfo', this.userInfo);*/
 
         var userId = this.$store.state.userInfo.userId;
-        if (userId !== "" ) {
+        if (userId !== "" && userId !==0 ) {
             return;
         }
 
@@ -63,7 +62,7 @@ export default {
             dd.runtime.permission.requestAuthCode({
                 corpId: "ding251335d31062a7f535c2f4657eb6378f",
                 onSuccess: function(result) {
-                    this.authCode = result.code;
+                    this.params.authCode = result.code;
                     this.login();
                 },
                 onFail : function(err) {
@@ -74,8 +73,9 @@ export default {
         },
 
         login(){
-
+            alert('in');
             axios.post(API.login, stringify(this.params)) .then((res) => {
+                alert(this.params);
                 var userId = res.data.result.dingUserId;
                 if (userId === ""){
                     this.alterInfo("登陆失败");
