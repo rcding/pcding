@@ -62,7 +62,7 @@ export default {
                 });
         },
         run() {
-            if (this.timer !== null) {
+            if (this.timer) {
                 clearInterval(this.timer);
                 this.timer = null;
                 this.endMeeting();
@@ -101,7 +101,6 @@ export default {
         this.params.meetingId = this.userInfo.meetingId
         this.startTime = this.userInfo.meetingBegainTime;
 
-
     },
     mounted() {
         this.canvas = this.$refs.canvas;
@@ -111,6 +110,9 @@ export default {
             this.run();
         }
     },
+    beforeDestroy() {
+        this.timer = null;
+    }
 }
 </script>
 
