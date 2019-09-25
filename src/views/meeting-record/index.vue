@@ -110,12 +110,11 @@ export default {
             axios.get(API.userInfoList)
                 .then((res) => {
                     this.userInfoList = this.userInfoList.concat(res.data.result);
-
+                    this.form.dingUserId = this.$store.state.userInfo.userId;
                 });
         },
     },
     created: function () {
-        this.form.dingUserId = this.$store.state.userInfo.userId;
         this.userInfoList = [{'userId':0,'dingUserId':'0','dingUserName':'全部','workNumber':'0'}];
         this.loadUserInfo();
         this.search();
