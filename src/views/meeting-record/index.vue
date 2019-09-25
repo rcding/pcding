@@ -31,11 +31,11 @@
             <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
             <el-table-column label="会议时长" align="center">
                 <template slot-scope="scope">
-                    {{scope.row.costTime || 'huixh'}}
+                    {{scope.row.costTime || '会议中'}}
                 </template>
             </el-table-column>
         </el-table>
-        <div class="footer" v-if="form.showMore">
+        <div class="footer" v-if="showMore">
             <el-button type="text" class="moreData-button" @click="getMore">点击加载更多</el-button>
         </div>
     </div>
@@ -53,7 +53,6 @@ export default {
                 dingUserId:null,
                 currentPage: 1,
                 pageSize: 10,
-                showMore:true,
                 timeSpan:'',
             },
             meetingThemeList: [{code:'部门晨会',name:'部门晨会'}],
@@ -66,6 +65,7 @@ export default {
             dataList: [],
             userInfoList:[],
             loading: false,
+            showMore:false,
         };
     },
     methods: {
@@ -90,23 +90,22 @@ export default {
                 .then((res) => {
 
                     if (res.data.result.dataList.length === 0){
+                        this.showMore = false;
                         this.form.currentPage = this.form.currentPage - 1;
                         if (this.form.currentPage === 0 ){
                             this.form.currentPage = 1;
-                            this.form.showMore = false;
+                            this.dataList = [];
                         }
-                    }else{
-                        if (res.data.result.dataList.length < this.form.pageSize){
-                            this.form.showMore = false;
-                        }else{
-                            this.form.showMore = true;
-                        }
-                    }
-
-                    if (this.form.currentPage === 1){
-                        this.dataList = res.data.result.dataList;
-                    }else {
+                    }else if (res.data.result.dataList.length < this.form.pageSize){
+                        this.showMore = false;
                         this.dataList = this.dataList.concat(res.data.result.dataList);
+                    }else{
+                        this.showMore = true;
+                        if (this.form.currentPage === 1 ){
+                            this.dataList = res.data.result.dataList;
+                        }else {
+                            this.dataList = this.dataList.concat(res.data.result.dataList);
+                        }
                     }
 
                 })
