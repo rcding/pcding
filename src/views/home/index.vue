@@ -73,9 +73,9 @@ export default {
         },
 
         login(){
-            alert('in');
+
             axios.post(API.login, stringify(this.params)) .then((res) => {
-                alert(this.params);
+
                 var userId = res.data.result.dingUserId;
                 if (userId === ""){
                     this.alterInfo("登陆失败");
