@@ -7,8 +7,8 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="主持人：">
-                <el-select class="width-150" size="mini" v-model="form.dingUserName">
-                    <el-option v-for="item in compereList" :key="item.code" :label="item.name" :value="item.code"></el-option>
+                <el-select class="width-150" size="mini" v-model="form.dingUserId">
+                    <el-option v-for="item in userInfoList" :key="item.dingUserId" :label="item.dingUserName" :value="item.dingUserId"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="时长：">
@@ -32,7 +32,7 @@
             <el-table-column prop="costTime" label="会议时长" align="center"></el-table-column>
         </el-table>
         <div class="footer" v-if="form.showMore">
-            <el-button type="text" class="black-button" @click="getMore">点击加载更多</el-button>
+            <el-button type="text" class="moreData-button" @click="getMore">点击加载更多</el-button>
         </div>
     </div>
 </template>
@@ -45,15 +45,14 @@ export default {
     data() {
         return {
             form: {
-                meetingName: '',
-                dingUserName: '',
+                meetingName: '部门晨会',
+                dingUserId:0,
                 currentPage: 1,
                 pageSize: 10,
                 showMore:true,
-                dingUserId:0,
             },
             timeSpan: '',
-            meetingThemeList: [],
+            meetingThemeList: [{code:'部门晨会',name:'部门晨会'}],
             compereList: [],
             timeSpanList: [
                 {code:'',name:'全部'},
@@ -61,6 +60,7 @@ export default {
                 {code:'30-60',name:'30~60分钟'},
                 {code:'0-60',name:'60分钟以内'}],
             dataList: [],
+            userInfoList:[],
             loading: false,
         };
     },
@@ -68,7 +68,6 @@ export default {
         search() {
             this.form.currentPage = 1;
             this.dataList = [];
-            this.form.showMore = true;
             this.getDataList();
         },
         getMore() {
@@ -88,11 +87,14 @@ export default {
                         this.form.currentPage = this.form.currentPage - 1;
                         if (this.form.currentPage === 0 ){
                             this.form.currentPage = 1;
+                            this.form.showMore = false;
                         }
                     }else{
                         this.dataList = this.dataList.concat(res.data.result.dataList);
                         if (res.data.result.dataList.length < this.form.pageSize){
                             this.form.showMore = false;
+                        }else{
+                            this.form.showMore = true;
                         }
                     }
 
@@ -104,9 +106,18 @@ export default {
         back() {
             this.$router.push({ name: 'home' });
         },
+        loadUserInfo(){
+            axios.get(API.userInfoList)
+                .then((res) => {
+                    this.userInfoList = this.userInfoList.concat(res.data.result);
+
+                });
+        },
     },
     created: function () {
         this.form.dingUserId = this.$store.state.userInfo.userId;
+        this.userInfoList = [{'userId':0,'dingUserId':'0','dingUserName':'全部','workNumber':'0'}];
+        this.loadUserInfo();
         this.search();
     }
 }
@@ -127,5 +138,8 @@ export default {
     }
     .black-button{
         color: black;
+    }
+    .moreData-button{
+        color: gainsboro;
     }
 </style>
