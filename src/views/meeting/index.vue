@@ -44,8 +44,6 @@ export default {
             axios.post(API.begainMeeting, stringify(this.params))
                 .then((res) => {
 
-                    alert(res.data.result.meetingId);
-
                     this.params.meetingId = res.data.result.meetingId;
                     this.userInfo.meetingId = res.data.result.meetingId;
                     this.userInfo.meetingBegainTime = this.startTime;

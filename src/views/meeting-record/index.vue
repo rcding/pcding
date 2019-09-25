@@ -12,7 +12,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="时长：">
-                <el-select class="width-150" size="mini" v-model="timeSpan">
+                <el-select class="width-150" size="mini" v-model="form.timeSpan">
                     <el-option v-for="item in timeSpanList" :key="item.code" :label="item.name" :value="item.code"></el-option>
                 </el-select>
             </el-form-item>
@@ -50,8 +50,8 @@ export default {
                 currentPage: 1,
                 pageSize: 10,
                 showMore:true,
+                timeSpan:'',
             },
-            timeSpan: '',
             meetingThemeList: [{code:'部门晨会',name:'部门晨会'}],
             compereList: [],
             timeSpanList: [
