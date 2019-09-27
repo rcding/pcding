@@ -40,6 +40,7 @@
 <script>
 import axios from 'axios';
 import * as API from '@/utils/constants/api';
+import { Loading } from 'element-ui';
 
 export default {
     data() {
@@ -56,7 +57,14 @@ export default {
             timeSpanList: [],
             dataList: [],
             loading: false,
+            loadingService: null,
         };
+    },
+    created() {
+        this.loadingService = Loading.service({ fullscreen: true, text: '正在加载，请稍微', background: 'rgba(0, 0, 0, 0.6)' });
+        setTimeout(() => {
+            this.loadingService.close();
+        }, 3000);
     },
     methods: {
         search() {
