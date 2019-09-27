@@ -6,8 +6,11 @@
 </template>
 
 <script>
+    import { stringify } from 'qs';
+    import * as API from '@/utils/constants/api';
 import * as dd from 'dingtalk-jsapi'
 import axios from 'axios';
+
 
 export default {
     name: 'HelloWorld',
@@ -16,28 +19,31 @@ export default {
     },
     data() {
         return {
-            message: '22222',
-            ggg: [],
-            params: {
-                curentPage: 1,
-            },
-            authCode:"",
+            params:{authCode:""},
             userInfo:{userId:0,userName:''},
             result: {},
         };
     },
     created: function () {
+
+        /*this.userInfo.userId = 'manager4081';
+        this.userInfo.userName = '李一凡';
+        this.$store.dispatch('SetUserInfo', this.userInfo);*/
+
+        var userId = this.$store.state.userInfo.userId;
+        if (userId !== "" && userId !==0 ) {
+            return;
+        }
+
         const that = this;
-        that.alterInfo("===  in");
         dd.runtime.permission.requestAuthCode({
             corpId: "ding251335d31062a7f535c2f4657eb6378f",
             onSuccess: function (result) {
-                that.authCode = result.code;
-                that.alterInfo("===  " + result.code);
-                that.login(this.authCode);
+                that.params.authCode = result.code;
+                that.login();
             },
-            onFail: function () {
-                alert("error");
+            onFail: function (err) {
+                that.alterInfo(err);
             }
 
         });
@@ -52,18 +58,12 @@ export default {
                 onFail : function() {}
             });
         },
-        goToMeeting() {
-            //this.$router.push({ name: 'meeting' });
-            this.requestAuthCode();
-        },
         requestAuthCode() {
-            this.alterInfo("====in")
             dd.runtime.permission.requestAuthCode({
                 corpId: "ding251335d31062a7f535c2f4657eb6378f",
                 onSuccess: function(result) {
-                    this.authCode = result.code;
-                    this.alterInfo(this.authCode);
-                    this.login(this.authCode);
+                    this.params.authCode = result.code;
+                    this.login();
                 },
                 onFail : function(err) {
                     this.alterInfo(err);
@@ -72,25 +72,27 @@ export default {
             });
         },
 
-        login(authCode){
+        login(){
 
-            axios.post('https://fatdingding.szlcsc.com/login?authCode=' + authCode) .then((res) => {
-                this.alterInfo("登陆。。。" + authCode);
-                var userId = res.data.result.userId;
-                if (userId == ""){
+            axios.post(API.login, stringify(this.params)) .then((res) => {
+
+                var userId = res.data.result.dingUserId;
+                if (userId === ""){
                     this.alterInfo("登陆失败");
                 }else{
-                    this.userInfo.userId = res.data.result.userId;
-                    this.userInfo.userName = res.data.result.userName;
-                    this.$store.dispatch('Set_USER_INFO', this.userInfo);
-
-                    this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
+                    this.userInfo.userId = res.data.result.dingUserId;
+                    this.userInfo.userName = res.data.result.dingUserName;
+                    this.$store.dispatch('SetUserInfo', this.userInfo);
                 }
 
             }, function (err) {
                 this.alterInfo(err)
             });
         },
+        goToMeeting() {
+            this.$router.push({ name: 'meeting' });
+        },
+
         goToMeetingRecord() {
             this.$router.push({ name: 'meeting-record' });
         },

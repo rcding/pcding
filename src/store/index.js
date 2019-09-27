@@ -8,7 +8,9 @@ const store = new Vuex.Store({
     state: {
         userInfo: {
             userId:'',
-            userName: ''
+            userName: '',
+            meetingId:null,
+            meetingBegainTime:null
         }
     },
     actions,

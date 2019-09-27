@@ -5,11 +5,12 @@ import router from '../src/router';
 
 // import '@/utils/networking';
 
-import { Button, Select, Table, TableColumn, Form, FormItem } from 'element-ui';
+import { Button, Select, Option, Table, TableColumn, Form, FormItem } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
+Vue.component(Option.name, Option);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
 Vue.component(Form.name, Form);
