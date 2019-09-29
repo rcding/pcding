@@ -29,9 +29,11 @@
             :data="dataList">
             <el-table-column prop="meetingName" label="会议主题" align="center"></el-table-column>
             <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
+            <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
+            <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
             <el-table-column label="会议时长" align="center">
                 <template slot-scope="scope">
-                    {{scope.row.costTime || '会议中'}}
+                    {{scope.row.beginTime || ''}}
                 </template>
             </el-table-column>
         </el-table>
