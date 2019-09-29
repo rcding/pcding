@@ -46,6 +46,7 @@
 <script>
 import axios from 'axios';
 import * as API from '@/utils/constants/api';
+import { Loading } from 'element-ui';
 
 export default {
     data() {
@@ -67,8 +68,18 @@ export default {
             dataList: [],
             userInfoList:[],
             loading: false,
+            loadingService: null,
             showMore:false,
         };
+    },
+    created() {
+        this.userInfoList = [{'userId':0,'dingUserId':null,'dingUserName':'全部','workNumber':'0'}];
+        this.loadUserInfo();
+        this.search();
+        this.loadingService = Loading.service({ fullscreen: true, text: '正在加载，请稍微', background: 'rgba(0, 0, 0, 0.6)' });
+        setTimeout(() => {
+            this.loadingService.close();
+        }, 3000);
     },
     methods: {
         search() {
@@ -129,11 +140,6 @@ export default {
                 });
         },
     },
-    created: function () {
-        this.userInfoList = [{'userId':0,'dingUserId':null,'dingUserName':'全部','workNumber':'0'}];
-        this.loadUserInfo();
-        this.search();
-    }
 }
 </script>
 
