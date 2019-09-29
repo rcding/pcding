@@ -1,8 +1,14 @@
 <template>
     <div>
-        <div class="wrap">
-            <!--<el-button class="back" type="info" size="mini" @click="back">返回</el-button>-->
-            <canvas class="cycle" ref="canvas" width="160" height="160" @click="run"></canvas>
+        <div class="box">
+            <ul>
+                <li><span id="hour">{{date.hour}}</span><span>时</span></li>
+                <li><span id="minute">{{date.minutes}}</span><span>分</span></li>
+                <li><span id="second">{{date.seconds}}</span><span>秒</span></li>
+            </ul>
+        </div>
+        <div class="bottom">
+            <el-button type="primary" size="mini" @click="run">{{btnText}}</el-button>
         </div>
     </div>
 </template>
@@ -15,9 +21,6 @@
 export default {
     data() {
         return {
-            time: '00:00',
-            canvas: null,
-            ctx: null,
             timer: null,
             startTime: 0,
             endTime: 0,
@@ -27,18 +30,19 @@ export default {
                 meetingId:0,
             },
             userInfo:{},
+            date: {
+                hour: '00',
+                minutes: '00',
+                seconds: '00',
+            },
         };
     },
-
-    methods: {
-        draw() {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.beginPath();
-            this.ctx.arc(80, 80, 80, 0, 2*Math.PI);
-            this.ctx.stroke();
-            this.ctx.font = '30px STSong ';
-            this.ctx.fillText(this.time, 42.5, 85);
+    computed: {
+        btnText() {
+            return this.timer ? '结束计时' : '开始计时';
         },
+    },
+    methods: {
         begainMeeting(){
 
             axios.post(API.begainMeeting, stringify(this.params))
@@ -68,27 +72,29 @@ export default {
                 this.endMeeting();
 
             } else {
-                this.time = '00:00';
+                this.dateInit();
                 if (this.userInfo.meetingBegainTime){
-
                     this.startTime = this.userInfo.meetingBegainTime;
                 }else {
                     this.startTime = new Date().getTime();
                     this.begainMeeting();
                 }
-
-                this.draw();
                 this.timer = setInterval(() => {
                     this.endTime = new Date().getTime();
                     const seconds = parseInt((this.endTime - this.startTime) / 1000);
-                    if (seconds < 3600) {
-                        const minutes = parseInt(seconds / 60);
-                        const restSeconds = seconds - (minutes * 60);
-                        this.time = `${minutes < 10 ? `0${minutes}`: minutes}:${restSeconds < 10 ? `0${restSeconds}`: restSeconds}`;
-                    }
-                    this.draw();
+                    this.date.hour = parseInt(seconds / 3600) < 10 ? `0${parseInt(seconds / 3600)}` : parseInt(seconds / 3600);
+                    this.date.minutes = parseInt(seconds / 60) < 10 ? `0${parseInt(seconds / 60)}` : parseInt(seconds / 60);
+                    const restSeconds = seconds - (this.date.minutes * 60);
+                    this.date.seconds = restSeconds < 10 ? `0${restSeconds}`: restSeconds;
                 }, 1000);
             }
+        },
+        dateInit() {
+            this.date = {
+                hour: '00',
+                minutes: '00',
+                seconds: '00',
+            };
         },
         back() {
             this.$router.push({ name: 'home' });
@@ -98,17 +104,9 @@ export default {
         this.userInfo = this.$store.state.userInfo;
         this.userInfo.userId = 'manager4081';
         this.params.dingUserId = this.userInfo.userId;
-        this.params.meetingId = this.userInfo.meetingId
+        this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
 
-    },
-    mounted() {
-        this.canvas = this.$refs.canvas;
-        this.ctx = this.canvas.getContext('2d');
-        this.draw();
-        if (this.userInfo.meetingId){
-            this.run();
-        }
     },
     beforeDestroy() {
         this.timer = null;
@@ -117,22 +115,76 @@ export default {
 </script>
 
 <style scoped>
-    .wrap{
-        width: 1000px;
-        height: 600px;
-        display: flex;
-        justify-content: center;
+    .box{
+        width: 540px;
+        height: 200px;
+        margin: 50px auto;
+    }
+    .box ul{
+        padding: 0;
+        text-align: center;
+    }
+    .box li{
         position: relative;
+        text-align: center;
+        list-style-type: none;
+        display: inline-block;
+        width: 150px;
+        height:160px;
+        text-shadow:0 2px 1px #f4f4f4;
+        border:1px solid #9fa2ad;
+        border-radius: 5px;
+        margin: 5px;
+        background: -webkit-gradient(linear,0 0, 0 100%,
+        color-stop(.2,rgba(248,248,248,.3)),
+        color-stop(.5,rgba(168,173,190,.5)),
+        color-stop(.51,rgba(168,173,190,.3)),
+        color-stop(.9,rgba(248,248,248,.2)));
+        background: -webkit-linear-gradient(top,rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -moz-linear-gradient(top, rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -o-linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -ms-linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        box-shadow:inset 0 -2px 0 #f1f1f1,0 1px 0 #f1f1f1,0 2px 0 #9fa2ad,0 3px 0 #f1f1f1,0 4px 0 #9fa2ad;
     }
-    .back{
+    .box li:before,
+    .box li:after{
+        display: block;
+        content: "";
         position: absolute;
-        top: 10px;
-        left: 10px;
+        width: 150px;
     }
-    .cycle{
-        width: 160px;
-        height: 160px;
-        margin-top: 200px;
-        cursor: pointer;
+    .box li:before{
+        top:50%;
+        height: 1px;
+        box-shadow: 0 1px 0 #868995,0 2px 1px #fff;
+    }
+    .box li:after{
+        bottom: -65px;
+        height: 60px;
+        border-radius:0 0 5px 5px;
+        background: -webkit-gradient(linear,0 0,0 100%,from(rgba(0,0,0,.1)),to(rgba(0,0,0,0)));
+        background: -webkit-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -moz-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -o-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -ms-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        z-index: 1
+    }
+    .box li span:first-child{
+        font:120px 'BitstreamVeraSansMonoBold';
+        color: #52555a;
+        display: block;
+        height: 130px;
+        line-height: 150px;
+    }
+    .bottom {
+        width: 540px;
+        height: 100px;
+        text-align: center;
+        margin: 50px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
