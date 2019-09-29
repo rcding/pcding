@@ -29,8 +29,8 @@
             :data="dataList">
             <el-table-column prop="meetingName" label="会议主题" align="center"></el-table-column>
             <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
-            <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
-            <el-table-column prop="dingUserName" label="主持人" align="center"></el-table-column>
+            <el-table-column prop="startTime" label="开始时间" align="center"></el-table-column>
+            <el-table-column prop="overTime" label="结束时间" align="center"></el-table-column>
             <el-table-column label="会议时长" align="center">
                 <template slot-scope="scope">
                     {{scope.row.beginTime || ''}}
@@ -64,7 +64,10 @@ export default {
                 {code:'',name:'全部'},
                 {code:'0-30',name:'30分总以内'},
                 {code:'30-60',name:'30~60分钟'},
-                {code:'0-60',name:'60分钟以内'}],
+                {code:'0-60',name:'1小时以内'},
+                {code:'60-90',name:'60~90分钟'},
+                {code:'90-120',name:'90~120分钟'},
+                {code:'90-120',name:'两小时以内'}],
             dataList: [],
             userInfoList:[],
             loading: false,
@@ -74,17 +77,17 @@ export default {
     },
     created() {
         this.userInfoList = [{'userId':0,'dingUserId':null,'dingUserName':'全部','workNumber':'0'}];
+
         this.loadUserInfo();
         this.search();
-        this.loadingService = Loading.service({ fullscreen: true, text: '正在加载，请稍微', background: 'rgba(0, 0, 0, 0.6)' });
-        setTimeout(() => {
+       /*setTimeout(() => {
             this.loadingService.close();
-        }, 3000);
+        }, 3000);*/
+
     },
     methods: {
         search() {
             this.form.currentPage = 1;
-
             this.getDataList();
         },
         getMore() {
@@ -92,6 +95,7 @@ export default {
             this.getDataList();
         },
         getDataList(){
+            this.loadingService = Loading.service({ fullscreen: true, text: '正在加载，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
             const params = {};
             Object.keys(this.form) .forEach((key) => {
                 if (this.form[key]) {
@@ -124,6 +128,7 @@ export default {
                 })
                 .finally(() => {
                     this.loading = false;
+                    this.loadingService.close();
                 });
         },
         reset(){
@@ -133,11 +138,14 @@ export default {
             this.$router.push({ name: 'home' });
         },
         loadUserInfo(){
+            this.loadingService = Loading.service({ fullscreen: true, text: '正在加载，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
             axios.get(API.userInfoList)
                 .then((res) => {
                     this.userInfoList = this.userInfoList.concat(res.data.result);
                     this.form.dingUserId = this.$store.state.userInfo.userId;
-                });
+                }).finally(()=>{
+                this.loadingService.close();
+            });
         },
     },
 }
