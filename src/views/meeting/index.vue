@@ -102,7 +102,7 @@ export default {
     },
     created: function () {
         this.userInfo = this.$store.state.userInfo;
-        this.userInfo.userId = 'manager4081';
+        //this.userInfo.userId = 'manager4081';
         this.params.dingUserId = this.userInfo.userId;
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
