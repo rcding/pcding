@@ -115,14 +115,14 @@ export default {
                         }
                     }else if (res.data.result.dataList.length < this.form.pageSize){
                         this.showMore = false;
-                        this.dataList = this.dataList.concat(res.data.result.dataList);
                     }else{
                         this.showMore = true;
-                        if (this.form.currentPage === 1 ){
-                            this.dataList = res.data.result.dataList;
-                        }else {
-                            this.dataList = this.dataList.concat(res.data.result.dataList);
-                        }
+                    }
+
+                    if (this.form.currentPage === 1 ){
+                        this.dataList = res.data.result.dataList;
+                    }else {
+                        this.dataList = this.dataList.concat(res.data.result.dataList);
                     }
 
                 })
