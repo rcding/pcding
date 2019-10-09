@@ -33,7 +33,7 @@
             <el-table-column prop="overTime" label="结束时间" align="center"></el-table-column>
             <el-table-column label="会议时长" align="center">
                 <template slot-scope="scope">
-                    {{scope.row.beginTime || ''}}
+                    {{scope.row.costTime || ''}}
                 </template>
             </el-table-column>
         </el-table>
