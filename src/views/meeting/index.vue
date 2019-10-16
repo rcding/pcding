@@ -30,6 +30,7 @@ export default {
                 meetingId:0,
             },
             userInfo:{},
+            isInit: true,
             date: {
                 hour: '00',
                 minutes: '00',
@@ -66,12 +67,13 @@ export default {
                 });
         },
         run() {
-            if (this.timer) {
+            if (this.isInit && this.timer) {
                 clearInterval(this.timer);
                 this.timer = null;
                 this.endMeeting();
 
             } else {
+                this.isInit = true;
                 this.dateInit();
                 if (this.userInfo.meetingBegainTime){
                     this.startTime = this.userInfo.meetingBegainTime;
@@ -106,6 +108,11 @@ export default {
         this.params.dingUserId = this.userInfo.userId;
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
+
+        if (this.params.dingUserId !== null && this.params.meetingId !== null) {
+            this.isInit = false;
+            this.run();
+        }
 
     },
     beforeDestroy() {
