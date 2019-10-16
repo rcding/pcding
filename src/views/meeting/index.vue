@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div class="bottom">
-            <el-button type="primary" size="large" @click="run">{{btnText}}</el-button>
+            <el-button type="primary" size="large" style="width: 240px;height: 80px" @click="run">{{btnText}}</el-button>
         </div>
     </div>
 </template>
