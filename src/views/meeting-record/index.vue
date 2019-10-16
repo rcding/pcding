@@ -67,7 +67,7 @@ export default {
                 {code:'0-60',name:'1小时以内'},
                 {code:'60-90',name:'60~90分钟'},
                 {code:'90-120',name:'90~120分钟'},
-                {code:'90-120',name:'两小时以内'}],
+                {code:'0-120',name:'两小时以内'}],
             dataList: [],
             userInfoList:[],
             loading: false,
