@@ -26,7 +26,7 @@ export default {
             endTime: 0,
             params:{
                 dingUserId:0,
-                meetingName:'部门晨会',
+                meetingName:'晨会',
                 meetingId:0,
             },
             userInfo:{},
@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         btnText() {
-            return this.timer ? '结束计时' : '开始计时';
+            return this.timer ? '结束晨会' : '开始晨会';
         },
     },
     methods: {
@@ -179,8 +179,8 @@ export default {
         line-height: 150px;
     }
     .bottom {
-        width: 540px;
-        height: 100px;
+        width: 1080px;
+        height: 280px;
         text-align: center;
         margin: 50px auto;
         display: flex;

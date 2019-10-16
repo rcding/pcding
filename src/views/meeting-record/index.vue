@@ -52,13 +52,13 @@ export default {
     data() {
         return {
             form: {
-                meetingName: '部门晨会',
+                meetingName: '晨会',
                 dingUserId:null,
                 currentPage: 1,
                 pageSize: 10,
                 timeSpan:'',
             },
-            meetingThemeList: [{code:'部门晨会',name:'部门晨会'}],
+            meetingThemeList: [{code:'晨会',name:'晨会'}],
             compereList: [],
             timeSpanList: [
                 {code:'',name:'全部'},
@@ -77,7 +77,7 @@ export default {
     },
     created() {
         this.userInfoList = [{'userId':0,'dingUserId':null,'dingUserName':'全部','workNumber':'0'}];
-
+        this.form.dingUserId = this.$store.state.userInfo.userId;
         this.loadUserInfo();
         this.search();
        /*setTimeout(() => {
