@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div class="bottom">
-            <el-button type="primary" size="mini" @click="run">{{btnText}}</el-button>
+            <el-button type="primary" size="large" @click="run">{{btnText}}</el-button>
         </div>
     </div>
 </template>
@@ -179,8 +179,8 @@ export default {
         line-height: 150px;
     }
     .bottom {
-        width: 1080px;
-        height: 280px;
+        width: 540px;
+        height: 100px;
         text-align: center;
         margin: 50px auto;
         display: flex;
