@@ -37,13 +37,13 @@ export default {
 
         const that = this;
         dd.runtime.permission.requestAuthCode({
-            corpId: "ding251335d31062a7f535c2f4657eb6378f",
+            corpId: "ding3dd87e45b2064c1c35c2f4657eb6378f",
             onSuccess: function (result) {
                 that.params.authCode = result.code;
                 that.login();
             },
             onFail: function (err) {
-                that.alterInfo(err);
+                that.alterInfo('登录失败：' + err);
             }
 
         });
@@ -86,7 +86,7 @@ export default {
                 }
 
             }, function (err) {
-                this.alterInfo(err)
+                this.alterInfo('请求登录失败：' + err)
             });
         },
         goToMeeting() {
