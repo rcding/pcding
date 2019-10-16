@@ -1,4 +1,4 @@
-const baseUrl = 'https://fatdingding.szlcsc.com';
+const baseUrl = 'https://dingding.szlcsc.com';
 export const login = `${baseUrl}/login`;
 export const meetingPage = `${baseUrl}/meeting/page`;
 export const userInfoList = `${baseUrl}/user/list`;
