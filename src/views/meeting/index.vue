@@ -116,7 +116,7 @@ export default {
                     this.endTime = new Date().getTime();
                     const seconds = parseInt((this.endTime - this.startTime) / 1000);
                     this.date.hour = parseInt(seconds / 3600) < 10 ? `0${parseInt(seconds / 3600)}` : parseInt(seconds / 3600);
-                    this.date.minutes = parseInt(seconds / 60) < 10 ? `0${parseInt(seconds / 60)}` : parseInt(seconds / 60);
+                    this.date.minutes = parseInt((seconds % 3600) / 60) < 10 ? `0${parseInt((seconds % 3600) / 60)}` : parseInt((seconds % 3600) / 60);
                     const restSeconds = seconds - (this.date.minutes * 60);
                     this.date.seconds = restSeconds < 10 ? `0${restSeconds}`: restSeconds;
                 }, 1000);
