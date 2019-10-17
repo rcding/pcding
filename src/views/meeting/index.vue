@@ -56,7 +56,8 @@ export default {
         },
         searchNoEndMeeting(){
             this.alterInfo("jiaz === " );
-            axios.post(API.noEndMeeting, stringify(this.params))
+            const params = this.params;
+            axios.get(API.noEndMeeting, { params })
                 .then((res) => {
 
                     this.alterInfo("jiaz " + res);
