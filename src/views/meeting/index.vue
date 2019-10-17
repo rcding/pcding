@@ -54,6 +54,25 @@ export default {
                 onFail : function() {}
             });
         },
+        searchNoEndMeeting(){
+
+            axios.post(API.noEndMeeting, stringify(this.params))
+                .then((res) => {
+
+                    if (res.data.result !== null){
+
+                        this.params.meetingId = res.data.result.meetingId;
+                        this.userInfo.meetingId = res.data.result.meetingId;
+                        this.userInfo.meetingBegainTime = this.startTime;
+                        this.$store.dispatch('SetUserInfo', this.userInfo);
+
+                        this.isInit = false;
+                        this.run();
+                    }
+
+                });
+
+        },
         begainMeeting(){
 
             axios.post(API.begainMeeting, stringify(this.params))
@@ -119,11 +138,11 @@ export default {
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
 
-        this.alterInfo(this.params.dingUserId + '||' + this.params.meetingId + '||' );
-
         if (this.params.dingUserId !== null && this.params.dingUserId !== 0 && this.params.meetingId !== 0 && this.params.meetingId !== null && this.params.meetingId !== undefined) {
             this.isInit = false;
             this.run();
+        }else {
+            this.searchNoEndMeeting();
         }
 
     },
