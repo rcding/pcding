@@ -55,11 +55,11 @@ export default {
             });
         },
         searchNoEndMeeting(){
-
+            this.alterInfo("jiaz === " );
             axios.post(API.noEndMeeting, stringify(this.params))
                 .then((res) => {
 
-                    this.alterInfo("登陆失败 " + res);
+                    this.alterInfo("jiaz " + res);
                     if (res.data.result !== null){
 
                         this.params.meetingId = res.data.result.meetingId;
