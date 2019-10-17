@@ -60,7 +60,7 @@ export default {
             axios.get(API.noEndMeeting, { params })
                 .then((res) => {
 
-                    this.alterInfo("jiaz " + res);
+                    this.alterInfo("jiaz " + res.data);
                     if (res.data.result !== null){
 
                         this.params.meetingId = res.data.result.meetingId;
