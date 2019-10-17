@@ -59,6 +59,7 @@ export default {
             axios.post(API.noEndMeeting, stringify(this.params))
                 .then((res) => {
 
+                    this.alterInfo("登陆失败 " + res);
                     if (res.data.result !== null){
 
                         this.params.meetingId = res.data.result.meetingId;
