@@ -61,7 +61,7 @@ export default {
             axios.post(API.endMeeting, stringify(this.params))
                 .then(() => {
 
-                    this.userInfo.meetingId = null;
+                    this.userInfo.meetingId = 0;
                     this.userInfo.meetingBegainTime = null;
                     this.$store.dispatch('SetUserInfo', this.userInfo);
                 });
@@ -109,7 +109,7 @@ export default {
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
 
-        if (this.params.dingUserId !== null && this.params.meetingId !== null) {
+        if (this.params.dingUserId !== null && this.params.meetingId !== 0 && this.params.meetingId !== null) {
             this.isInit = false;
             this.run();
         }
