@@ -120,8 +120,8 @@ export default {
         this.startTime = this.userInfo.meetingBegainTime;
 
         this.alterInfo(this.params.dingUserId + '||' + this.params.meetingId + '||' );
-        
-        if (this.params.dingUserId !== null && this.params.dingUserId !== 0 && this.params.meetingId !== 0 && this.params.meetingId !== null) {
+
+        if (this.params.dingUserId !== null && this.params.dingUserId !== 0 && this.params.meetingId !== 0 && this.params.meetingId !== null && this.params.meetingId !== undefined) {
             this.isInit = false;
             this.run();
         }
