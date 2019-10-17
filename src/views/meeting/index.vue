@@ -65,7 +65,7 @@ export default {
 
                         this.params.meetingId = res.data.result.meetingId;
                         this.userInfo.meetingId = res.data.result.meetingId;
-                        this.userInfo.meetingBegainTime = this.startTime;
+                        this.userInfo.meetingBegainTime = res.data.result.beginTime;
                         this.$store.dispatch('SetUserInfo', this.userInfo);
 
                         this.isInit = false;
