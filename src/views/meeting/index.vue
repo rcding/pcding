@@ -109,7 +109,7 @@ export default {
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
 
-        if (this.params.dingUserId !== null && this.params.meetingId !== 0 && this.params.meetingId !== null) {
+        if (this.params.dingUserId !== null && this.params.dingUserId !== 0 && this.params.meetingId !== 0 && this.params.meetingId !== null) {
             this.isInit = false;
             this.run();
         }
