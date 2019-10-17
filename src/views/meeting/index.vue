@@ -17,6 +17,7 @@
     import { stringify } from 'qs';
     import axios from 'axios';
     import * as API from '@/utils/constants/api';
+    import * as dd from 'dingtalk-jsapi';
 
 export default {
     data() {
@@ -44,6 +45,15 @@ export default {
         },
     },
     methods: {
+        alterInfo(msg){
+            dd.device.notification.alert({
+                message:msg,
+                title: "提示",
+                buttonName: "确定",
+                onSuccess : function() {},
+                onFail : function() {}
+            });
+        },
         begainMeeting(){
 
             axios.post(API.begainMeeting, stringify(this.params))
@@ -109,6 +119,8 @@ export default {
         this.params.meetingId = this.userInfo.meetingId;
         this.startTime = this.userInfo.meetingBegainTime;
 
+        this.alterInfo(this.params.dingUserId + '||' + this.params.meetingId + '||' );
+        
         if (this.params.dingUserId !== null && this.params.dingUserId !== 0 && this.params.meetingId !== 0 && this.params.meetingId !== null) {
             this.isInit = false;
             this.run();
