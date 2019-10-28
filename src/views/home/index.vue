@@ -100,8 +100,8 @@ export default {
         goToMeeting() {
             if (this.userInfo.userId === 0 || this.userInfo.userId === ''){
 
-                this.alterInfo('登录失败,请重新登录');
-                
+                this.alterInfo('登录失败,请刷新页面重新登录');
+
             }else{
                 this.$router.push({ name: 'meeting' });
             }
