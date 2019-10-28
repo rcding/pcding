@@ -91,8 +91,6 @@ export default {
                     this.$store.dispatch('SetUserInfo', this.userInfo);
                 }
 
-                this.alterInfo(this.userInfo.userName);
-
             }, function (err) {
                 this.alterInfo('请求登录失败：' + err)
             }).finally(() => {
@@ -100,7 +98,13 @@ export default {
             });
         },
         goToMeeting() {
-            this.$router.push({ name: 'meeting' });
+            if (this.userInfo.userId === 0 || this.userInfo.userId === ''){
+
+                this.alterInfo('登录失败,请重新登录');
+                
+            }else{
+                this.$router.push({ name: 'meeting' });
+            }
         },
 
         goToMeetingRecord() {
