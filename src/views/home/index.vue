@@ -42,13 +42,13 @@ export default {
             onSuccess: function (result) {
                 that.params.authCode = result.code;
                 that.login();
+                this.loadingService.close();
             },
             onFail: function (err) {
                 that.alterInfo('登录失败：' + err);
+                this.loadingService.close();
             },
 
-        }).finally(()=>{
-            this.loadingService.close();
         });
     },
     methods: {
