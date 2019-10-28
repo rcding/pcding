@@ -8,9 +8,9 @@
 <script>
     import { stringify } from 'qs';
     import * as API from '@/utils/constants/api';
-import * as dd from 'dingtalk-jsapi'
+import * as dd from 'dingtalk-jsapi';
 import axios from 'axios';
-
+import { Loading } from 'element-ui';
 
 export default {
     name: 'HelloWorld',
@@ -22,6 +22,7 @@ export default {
             params:{authCode:""},
             userInfo:{userId:0,userName:''},
             result: {},
+            loadingService:null
         };
     },
     created: function () {
@@ -34,7 +35,7 @@ export default {
         if (userId !== "" && userId !==0 ) {
             return;
         }
-
+        this.loadingService = Loading.service({ fullscreen: true, text: '正在登录，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
         const that = this;
         dd.runtime.permission.requestAuthCode({
             corpId: "ding3dd87e45b2064c1c35c2f4657eb6378f",
@@ -44,7 +45,9 @@ export default {
             },
             onFail: function (err) {
                 that.alterInfo('登录失败：' + err);
-            }
+            }.finally(() => {
+            that.loadingService.close();
+        }),
 
         });
     },
@@ -74,6 +77,7 @@ export default {
 
         login(){
 
+            this.loadingService = Loading.service({ fullscreen: true, text: '正在登录，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
             axios.post(API.login, stringify(this.params)) .then((res) => {
 
                 var userId = res.data.result.dingUserId;
@@ -87,6 +91,8 @@ export default {
 
             }, function (err) {
                 this.alterInfo('请求登录失败：' + err)
+            }).finally(() => {
+                this.loadingService.close();
             });
         },
         goToMeeting() {
