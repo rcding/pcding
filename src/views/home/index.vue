@@ -45,10 +45,10 @@ export default {
             },
             onFail: function (err) {
                 that.alterInfo('登录失败：' + err);
-            }.finally(() => {
-            this.loadingService.close();
-        }),
+            },
 
+        }).finally(()=>{
+            this.loadingService.close();
         });
     },
     methods: {
@@ -88,6 +88,8 @@ export default {
                     this.userInfo.userName = res.data.result.dingUserName;
                     this.$store.dispatch('SetUserInfo', this.userInfo);
                 }
+
+                this.alterInfo(this.userInfo.userName);
 
             }, function (err) {
                 this.alterInfo('请求登录失败：' + err)
