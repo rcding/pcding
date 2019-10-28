@@ -40,13 +40,15 @@ export default {
         dd.runtime.permission.requestAuthCode({
             corpId: "ding3dd87e45b2064c1c35c2f4657eb6378f",
             onSuccess: function (result) {
+                that.loadingService.close();
                 that.params.authCode = result.code;
                 that.login();
-                this.loadingService.close();
+
             },
             onFail: function (err) {
+                that.loadingService.close();
                 that.alterInfo('登录失败：' + err);
-                this.loadingService.close();
+
             },
 
         });
@@ -77,7 +79,7 @@ export default {
 
         login(){
 
-            //this.loadingService = Loading.service({ fullscreen: true, text: '正在登录，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
+            this.loadingService = Loading.service({ fullscreen: true, text: '正在登录，请稍后', background: 'rgba(0, 0, 0, 0.6)' });
             axios.post(API.login, stringify(this.params)) .then((res) => {
 
                 var userId = res.data.result.dingUserId;
@@ -94,7 +96,7 @@ export default {
             }, function (err) {
                 this.alterInfo('请求登录失败：' + err)
             }).finally(() => {
-                //this.loadingService.close();
+                this.loadingService.close();
             });
         },
         goToMeeting() {
