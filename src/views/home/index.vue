@@ -46,7 +46,7 @@ export default {
             onFail: function (err) {
                 that.alterInfo('登录失败：' + err);
             }.finally(() => {
-            that.loadingService.close();
+            this.loadingService.close();
         }),
 
         });
