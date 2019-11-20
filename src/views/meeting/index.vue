@@ -131,7 +131,7 @@ export default {
             this.$router.push({ name: 'home' });
         },
     },
-    created: function () {
+    created() {
         this.userInfo = this.$store.state.userInfo;
         //this.userInfo.userId = 'manager4081';
         this.params.dingUserId = this.userInfo.userId;
@@ -178,11 +178,11 @@ export default {
         color-stop(.5,rgba(168,173,190,.5)),
         color-stop(.51,rgba(168,173,190,.3)),
         color-stop(.9,rgba(248,248,248,.2)));
-        background: -webkit-linear-gradient(top,rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
-        background: -moz-linear-gradient(top, rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
-        background: -o-linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
-        background: -ms-linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
-        background: linear-gradient(top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -webkit-linear-gradient(to top,rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -moz-linear-gradient(to top, rgba(248,248,248,.3) 20%,rgba(168,173,190,.5) 50%,rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -o-linear-gradient(to top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: -ms-linear-gradient(to top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
+        background: linear-gradient(to top, rgba(248,248,248,.3) 20%, rgba(168,173,190,.5) 50%, rgba(168,173,190,.3) 51%, rgba(248,248,248,.2) 90%);
         box-shadow:inset 0 -2px 0 #f1f1f1,0 1px 0 #f1f1f1,0 2px 0 #9fa2ad,0 3px 0 #f1f1f1,0 4px 0 #9fa2ad;
     }
     .box li:before,
@@ -202,11 +202,11 @@ export default {
         height: 60px;
         border-radius:0 0 5px 5px;
         background: -webkit-gradient(linear,0 0,0 100%,from(rgba(0,0,0,.1)),to(rgba(0,0,0,0)));
-        background: -webkit-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
-        background: -moz-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
-        background: -o-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
-        background: -ms-linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
-        background: linear-gradient(top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -webkit-linear-gradient(to top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -moz-linear-gradient(to top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -o-linear-gradient(to top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: -ms-linear-gradient(to top,rgba(0,0,0,.1),rgba(0,0,0,0));
+        background: linear-gradient(to top,rgba(0,0,0,.1),rgba(0,0,0,0));
         z-index: 1
     }
     .box li span:first-child{
